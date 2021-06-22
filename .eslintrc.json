@@ -15,7 +15,10 @@
   },
   "plugins": ["import", "@typescript-eslint", "prettier"],
   "rules": {
-    "import/extensions": ["error", "ignorePackages", { "ts": "never" }]
+    "import/extensions": ["error", "ignorePackages", { "ts": "never" }],
+    "class-methods-use-this": "off",
+    "import/prefer-default-export": "off",
+    "camelcase": "off"
   },
   "settings": {
     "import/parsers": {

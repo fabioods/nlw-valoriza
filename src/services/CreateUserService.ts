@@ -1,6 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 import { User } from '../entities/User';
 import { UserRepository } from '../repositories/UserRepositories';
+import { InvalidParameterError, AlreadyExists } from '../utils/error';
 
 interface IUserRequest {
   name: string;
@@ -13,7 +14,7 @@ export class CreateUserService {
     const userRepository = getCustomRepository(UserRepository);
 
     if (!email) {
-      throw new Error('Email incorrect');
+      throw new InvalidParameterError('Email');
     }
 
     const userAlreadyExists = await userRepository.findOne({
@@ -21,7 +22,7 @@ export class CreateUserService {
     });
 
     if (userAlreadyExists) {
-      throw new Error('User already exists');
+      throw new AlreadyExists('user');
     }
 
     const user = userRepository.create({ email, name, admin });

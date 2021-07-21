@@ -5,7 +5,7 @@ import {
   AuthenticateUserController,
   CreateComplimentController,
 } from './controllers';
-import { ensureAuth } from './middlewares';
+import { ensureAuth, ensureAdmin } from './middlewares';
 
 const router = Router();
 
@@ -16,7 +16,7 @@ const createComplimentController = new CreateComplimentController();
 
 router.post('/auth', authUserController.handle);
 router.post('/users', createUserController.handle);
-router.post('/tags', ensureAuth, createTagController.handle);
+router.post('/tags', ensureAuth, ensureAdmin, createTagController.handle);
 router.post('/compliments', ensureAuth, createComplimentController.handle);
 
 export { router };

@@ -1,4 +1,5 @@
 import { getCustomRepository } from 'typeorm';
+import { hash } from 'bcryptjs';
 import { User } from '../entities/User';
 import { UserRepository } from '../repositories/UserRepositories';
 import { InvalidParameterError, AlreadyExists } from '../utils/error';
@@ -18,6 +19,10 @@ export class CreateUserService {
       throw new InvalidParameterError('Email');
     }
 
+    if (!password) {
+      throw new InvalidParameterError('Password');
+    }
+
     const userAlreadyExists = await userRepository.findOne({
       where: { email },
     });
@@ -26,7 +31,14 @@ export class CreateUserService {
       throw new AlreadyExists('user');
     }
 
-    const user = userRepository.create({ email, name, admin, password });
+    const passwordHash = await hash(password, 8);
+
+    const user = userRepository.create({
+      email,
+      name,
+      admin,
+      password: passwordHash,
+    });
     await userRepository.save(user);
     return user;
   }

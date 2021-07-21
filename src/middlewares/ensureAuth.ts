@@ -4,10 +4,10 @@ export function ensureAuth(
   req: Request,
   res: Response,
   next: NextFunction,
-): void {
+): Response | void {
   const admin = true;
 
   if (admin) return next();
 
-  throw new Error('User not authenticated');
+  return res.status(401).json({ message: 'User not authenticated' });
 }

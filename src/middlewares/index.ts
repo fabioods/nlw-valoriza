@@ -1,3 +1,4 @@
+import { ensureAdmin } from './ensureAdmin';
 import { ensureAuth } from './ensureAuth';
 
-export { ensureAuth };
+export { ensureAdmin, ensureAuth };

@@ -12,4 +12,9 @@ export class UserRepository extends Repository<User> {
     const user = await this.findOne({ where: { id } });
     return user;
   }
+
+  async isUserAdmin(id: string): Promise<boolean> {
+    const user = await this.findOne({ where: { id, admin: true } });
+    return !!user;
+  }
 }

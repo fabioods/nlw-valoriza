@@ -1,6 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 import { Tag } from '../entities/Tag';
 import { TagRepository } from '../repositories/TagsRepositories';
+import { InvalidParameterError, AlreadyExists } from '../utils/error';
 
 interface IRequest {
   name: string;
@@ -10,12 +11,12 @@ export class CreateTagService {
   async execute({ name }: IRequest): Promise<Tag> {
     const tagRepository = getCustomRepository(TagRepository);
     if (!name) {
-      throw new Error('Tag name required');
+      throw new InvalidParameterError('Name');
     }
 
     const tagAlredyExists = await tagRepository.getByName(name);
     if (tagAlredyExists) {
-      throw new Error('Tag already exists');
+      throw new AlreadyExists('tag');
     }
 
     const tag = await tagRepository.create({ name });

@@ -3,6 +3,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import './database';
 import { router } from './routes';
+import { InternalServerError } from './utils/error';
 
 const app = express();
 app.use(express.json());

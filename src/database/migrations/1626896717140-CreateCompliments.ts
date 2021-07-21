@@ -59,18 +59,24 @@ export class CreateCompliments1626896717140 implements MigrationInterface {
         referencedColumnNames: ['id'],
         referencedTableName: 'users',
         name: 'fk_compliments_user_sender',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
       }),
       new TableForeignKey({
         columnNames: ['user_receiver'],
         referencedColumnNames: ['id'],
         referencedTableName: 'users',
         name: 'fk_compliments_user_receiver',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
       }),
       new TableForeignKey({
         columnNames: ['tag_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'tags',
         name: 'fk_compliments_tag',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
       }),
     ]);
   }

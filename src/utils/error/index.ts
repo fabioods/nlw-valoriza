@@ -1,5 +1,13 @@
 import { InvalidParameterError } from './InvalidParamError';
-import { AlreadyExists } from './AlreadyExists';
+import { AlreadyExistsError } from './AlreadyExistsError';
 import { InternalServerError } from './InternalServerError';
+import { InvalidPasswordError } from './InvalidPasswordError';
+import { NoExistsError } from './NoExistsError';
 
-export { InvalidParameterError, AlreadyExists, InternalServerError };
+export {
+  InvalidParameterError,
+  AlreadyExistsError,
+  InternalServerError,
+  InvalidPasswordError,
+  NoExistsError,
+};

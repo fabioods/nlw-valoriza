@@ -7,10 +7,11 @@ interface IUserRequest {
   name: string;
   email: string;
   admin?: boolean;
+  password: string;
 }
 
 export class CreateUserService {
-  async execute({ email, admin, name }: IUserRequest): Promise<User> {
+  async execute({ email, admin, name, password }: IUserRequest): Promise<User> {
     const userRepository = getCustomRepository(UserRepository);
 
     if (!email) {
@@ -25,7 +26,7 @@ export class CreateUserService {
       throw new AlreadyExists('user');
     }
 
-    const user = userRepository.create({ email, name, admin });
+    const user = userRepository.create({ email, name, admin, password });
     await userRepository.save(user);
     return user;
   }

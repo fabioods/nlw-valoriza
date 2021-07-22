@@ -7,4 +7,9 @@ export class TagRepository extends Repository<Tag> {
     const tag = await this.findOne({ where: { name } });
     return tag;
   }
+
+  async getTagsOrderedByName(): Promise<Tag[]> {
+    const t = await this.find({ order: { name: 'ASC' } });
+    return t;
+  }
 }

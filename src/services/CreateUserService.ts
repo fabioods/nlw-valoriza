@@ -1,30 +1,42 @@
 import { getCustomRepository } from 'typeorm';
+import { hash } from 'bcryptjs';
 import { User } from '../entities/User';
 import { UserRepository } from '../repositories/UserRepositories';
+import { InvalidParameterError, AlreadyExistsError } from '../utils/error';
 
 interface IUserRequest {
   name: string;
   email: string;
   admin?: boolean;
+  password: string;
 }
 
 export class CreateUserService {
-  async execute({ email, admin, name }: IUserRequest): Promise<User> {
+  async execute({ email, admin, name, password }: IUserRequest): Promise<User> {
     const userRepository = getCustomRepository(UserRepository);
 
     if (!email) {
-      throw new Error('Email incorrect');
+      throw new InvalidParameterError('Email');
     }
 
-    const userAlreadyExists = await userRepository.findOne({
-      where: { email },
-    });
+    if (!password) {
+      throw new InvalidParameterError('Password');
+    }
+
+    const userAlreadyExists = await userRepository.getUserByEmail(email);
 
     if (userAlreadyExists) {
-      throw new Error('User already exists');
+      throw new AlreadyExistsError('user');
     }
 
-    const user = userRepository.create({ email, name, admin });
+    const passwordHash = await hash(password, 8);
+
+    const user = userRepository.create({
+      email,
+      name,
+      admin,
+      password: passwordHash,
+    });
     await userRepository.save(user);
     return user;
   }

@@ -7,22 +7,13 @@ import {
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 
-@Entity({ name: 'users' })
-export class User {
+@Entity({ name: 'tags' })
+export class Tag {
   @PrimaryColumn()
   readonly id: string;
 
   @Column()
   name: string;
-
-  @Column()
-  email: string;
-
-  @Column()
-  password: string;
-
-  @Column({ type: 'boolean' })
-  admin: boolean;
 
   @CreateDateColumn()
   created_at: Date;

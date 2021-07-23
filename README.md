@@ -9,19 +9,63 @@
   </a>
 </p>
 
-> Projeto criado na NLW Together de 06/2021, com a Dani como instrutora.
+> Projeto criado na NLW Together de 06/2021
 
-## Install
+<p align="center">
+  <img alt="Preview" src="https://i.ibb.co/4RTZQQ4/Design-sem-nome.png">
+</p>
+
+## Instalação
+
+Clone o projeto:
+
+```sh
+git clone https://github.com/fabioods/nlw-valoriza.git
+```
+
+Entre na pasta do projeto.
+
+```sh
+cd nlw-valoriza
+```
+
+Instale as dependências do projeto:
 
 ```sh
 yarn install
 ```
 
-## Usage
+Crie um banco no postgres e configure da seguinte forma:
+
+```json
+{
+  "port": 5555,
+  "username": "postgres",
+  "password": "postgres",
+  "database": "nlw-valoriza"
+}
+```
+
+Por fim execute o seguinte comando para criar as tabelas no banco de dados:
 
 ```sh
-yarn run start
+yarn typeorm migration:run
 ```
+
+## Uso
+
+```sh
+yarn start
+```
+
+## ✨ Tecnologias
+
+Esse projeto foi desenvolvido com as seguintes tecnologias:
+
+- [Node.js](https://nodejs.org/en/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Express](https://expressjs.com/pt-br/)
+- [JSONWebToken](https://github.com/auth0/node-jsonwebtoken#readme)
 
 ## Author
 
